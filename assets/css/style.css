@@ -10,9 +10,7 @@
     float: right;
     padding-right: 20px;
     color: #434443;
-    font-family: Arial, Helvetica, sans-serif;
-
-    
+    font-family: Arial, Helvetica, sans-serif;  
     
 }
 
@@ -21,10 +19,17 @@
     height: 4px;
 }
 
-a:hover{
-    color: red;
-}
 
 .active {
     margin-right: 100px;
+}
+
+.form-control {
+    margin-top: 45px;
+}
+
+#search-btn {
+    margin-top: 45px;
+    background: #666699;
+    color: azure;
 }

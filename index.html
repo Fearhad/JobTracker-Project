@@ -16,16 +16,31 @@
 <body>
 
 
-    <nav class="nav">
-        <img src="assets/images/getajob-logo.gif" width="300px" id="header-img">
-        <a class="nav-link active" href="#">Active</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link" href="#">Link</a>
-        <a class="nav-link disabled" href="#">Disabled</a>
-        </nav>
-    <div class="row buffer">
-        
+    <div class="row">
+        <!-- Logo image -->
+        <div class="col-md-4">
+            <img src="assets/images/getajob-logo.gif" width="300px" id="header-img">
+        </div>
+        <!-- search input -->
+        <div class="col-md-2">
+            <input class="form-control" type="text" id="input-fld" placeholder="Type..." aria-label="Search">
+        </div>
+        <!-- search button -->
+        <div class="col-md-1">
+            <button type="button" class="btn" id="search-btn">Search</button>
+        </div>
+        <!-- nav buttons -->
+        <div class="col-md-5">
+            <nav class="nav">
+                <a class="nav-link active" href="#">Active</a>
+                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </nav>
+        </div>
     </div>
+        <div class="row buffer">
+        </div>
 
 
 </body>
