@@ -1,0 +1,30 @@
+#header-img {
+    margin-left: 55px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.nav-link {
+    padding-top: 45px;
+    font-size: 30px;
+    float: right;
+    padding-right: 20px;
+    color: #434443;
+    font-family: Arial, Helvetica, sans-serif;
+
+    
+    
+}
+
+.buffer {
+    background-color: #434443;
+    height: 4px;
+}
+
+a:hover{
+    color: red;
+}
+
+.active {
+    margin-right: 100px;
+}
