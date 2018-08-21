@@ -19,6 +19,7 @@ var favoriteJobs = [];
 
 $.ajax({
     url: queryURL,
+    headers: {"Access-Control-Allow-Origin": "null"},
     method: "GET"
 }).then(function(response){ 
 
@@ -46,15 +47,18 @@ database.ref().on("value", function(snapshot){
         favoriteJobs = snapshot.val().jobs;
         console.log(favoriteJobs);
         for(var i = 0; i < favoriteJobs.length; i++) {
-            var index = i;
             var queryURL = "https://goremote.io/api/job/" + favoriteJobs[i];
-            console.log(queryURL);
+            var index = 0;
+            console.log(encodeURI(queryURL));
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function(response){
+                console.log(index);
                 dSResults(response, index, "favResults");
+                index++;
                 globalFavJobObject.push(response);
+                console.log(globalFavJobObject);
             }).catch(function(error){
                 console.log("Something, something dark side: " + error);
             })
@@ -73,24 +77,11 @@ $("#favorite").on("click", function(){
 });
 
 // Modal Handler
-$('#detailModal').on('show.bs.modal', function (event) {
+$('#Modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
-    var job = globalJobObject[button.attr('data-jobObjID')];
-    console.log(job); // Pull up the current job listing from the global Job Object.
-
-    var modal = $(this);
-    modal.find('#favorite').attr('data-jobID', job.jobid);
-    modal.find('.modal-title').text(job.position);
-    modal.find('.modal-body #applyurl').html('<a href="' + job.applyurl + '" target="_blank">Apply @ ' + job.sourcename + '</a>');
-    modal.find('.modal-body #companyname').text(job.companyname);
-    modal.find('.modal-body #googleMap').val(dMView(job.companyname));
-    modal.find('.modal-body #description').html(job.description);
-});
-
-// Favorite Modal Handler
-$('#favModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var job = globalFavJobObject[button.attr('data-jobObjID')];
+    var job;
+    if(button.attr("data-modal") == "detailModal") { job = globalJobObject[button.attr('data-jobObjID')]; }
+    else { job = globalFavJobObject[button.attr('data-jobObjID')]; }
     console.log(job); // Pull up the current job listing from the global Job Object.
 
     var modal = $(this);
@@ -109,9 +100,14 @@ function dSResults(jObject, index, whichTable) {
     // creating new tableRow to append to the tbody of jSResults.
     var tableRow = $("<tr>");
 
+    // setting detailModal or favModal data attr
+    var whichModal = "";
+    if(whichTable == "favResults") { whichModal = "favModal"; }
+    else { whichModal = "detailModal"; }
+
     // filling in each cell data with appropriate information.
     // this could be DRYed up a bit.
-    tableRow.append($("<td>").html('<span class="c-title text-primary" data-jobObjID="' + index + '" data-toggle="modal" data-target="#detailModal">' + r.position + '</span>'));
+    tableRow.append($("<td>").html('<span class="c-title text-primary" data-jobObjID="' + index + '" data-toggle="modal" data-target="#Modal" data-modal="' + whichModal + '">' + r.position + '</span>'));
     tableRow.append($("<td>").text(r.companyname));
     tableRow.append($("<td>").text(r.dateadded));
     tableRow.append($("<td>").text("NA"));
