@@ -1,15 +1,31 @@
 
-// var jobLocation = "Wirecutter";
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCVehJ1ulLwPoTnIXFhkMPUCINBa6ks1Vw",
+    authDomain: "getajob-project1.firebaseapp.com",
+    databaseURL: "https://getajob-project1.firebaseio.com",
+    projectId: "getajob-project1",
+    storageBucket: "getajob-project1.appspot.com",
+    messagingSenderId: "171249140675"
+}; firebase.initializeApp(config);
+
+var database = firebase.database(); // initialize database object for firebase.
 
 var queryURL = "https://goremote.io/api/jobs";
 var globalJobObject;
+var globalFavJobObject = [];
+
+var favoriteJobs = [];
 
 $.ajax({
     url: queryURL,
     method: "GET"
 }).then(function(response){ 
-    console.log(response);
-    dSResults(response);
+
+    for(var i = 0; i < 10; i++) {
+        var index = i;
+        dSResults(response[i], index, "jSResults");
+    }
     globalJobObject = response;
 }).catch(function(error){
     console.log("The Following Error Occurred: " + error);
@@ -24,13 +40,61 @@ $("#search-btn").on("click", function() {
     console.log(term); 
 });
 
-// Modal handler
+// retrieve any existing data
+database.ref().on("value", function(snapshot){
+    if(snapshot.child("jobs").exists()) {
+        favoriteJobs = snapshot.val().jobs;
+        console.log(favoriteJobs);
+        for(var i = 0; i < favoriteJobs.length; i++) {
+            var index = i;
+            var queryURL = "https://goremote.io/api/job/" + favoriteJobs[i];
+            console.log(queryURL);
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response){
+                dSResults(response, index, "favResults");
+                globalFavJobObject.push(response);
+            }).catch(function(error){
+                console.log("Something, something dark side: " + error);
+            })
+        }
+    }
+});
+
+// create favorite click handler to call firebase database and save new array.
+$("#favorite").on("click", function(){
+    var jobToFav = $(this).attr("data-jobID");
+    favoriteJobs.push(jobToFav);
+
+    database.ref().set({
+        jobs: favoriteJobs
+    });
+});
+
+// Modal Handler
 $('#detailModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var job = globalJobObject[button.attr('data-jobObjID')];
     console.log(job); // Pull up the current job listing from the global Job Object.
 
     var modal = $(this);
+    modal.find('#favorite').attr('data-jobID', job.jobid);
+    modal.find('.modal-title').text(job.position);
+    modal.find('.modal-body #applyurl').html('<a href="' + job.applyurl + '" target="_blank">Apply @ ' + job.sourcename + '</a>');
+    modal.find('.modal-body #companyname').text(job.companyname);
+    modal.find('.modal-body #googleMap').val(dMView(job.companyname));
+    modal.find('.modal-body #description').html(job.description);
+});
+
+// Favorite Modal Handler
+$('#favModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var job = globalFavJobObject[button.attr('data-jobObjID')];
+    console.log(job); // Pull up the current job listing from the global Job Object.
+
+    var modal = $(this);
+    modal.find('#favorite').attr('data-jobID', job.jobid);
     modal.find('.modal-title').text(job.position);
     modal.find('.modal-body #applyurl').html('<a href="' + job.applyurl + '" target="_blank">Apply @ ' + job.sourcename + '</a>');
     modal.find('.modal-body #companyname').text(job.companyname);
@@ -39,25 +103,22 @@ $('#detailModal').on('show.bs.modal', function (event) {
 });
 
 // function display Search Results
-function dSResults(jObject) {
-    for(var i = 0; i < 10; i++) {
-        // storing current array item in a variable r.
-        var r = jObject[i];
+function dSResults(jObject, index, whichTable) {
+    var r = jObject;
 
-        // creating new tableRow to append to the tbody of jSResults.
-        var tableRow = $("<tr>");
+    // creating new tableRow to append to the tbody of jSResults.
+    var tableRow = $("<tr>");
 
-        // filling in each cell data with appropriate information.
-        // this could be DRYed up a bit.
-        tableRow.append($("<td>").html('<span class="c-title text-primary" data-jobObjID="' + i + '" data-toggle="modal" data-target="#detailModal">' + r.position + '</span>'));
-        tableRow.append($("<td>").text(r.companyname));
-        tableRow.append($("<td>").text(r.dateadded));
-        tableRow.append($("<td>").text("NA"));
-        tableRow.append($("<td>").html(r.description.substr(0, 100) + "..."));
+    // filling in each cell data with appropriate information.
+    // this could be DRYed up a bit.
+    tableRow.append($("<td>").html('<span class="c-title text-primary" data-jobObjID="' + index + '" data-toggle="modal" data-target="#detailModal">' + r.position + '</span>'));
+    tableRow.append($("<td>").text(r.companyname));
+    tableRow.append($("<td>").text(r.dateadded));
+    tableRow.append($("<td>").text("NA"));
+    tableRow.append($("<td>").html(r.description.substr(0, 100) + "..."));
 
-        // appending the new tableRow to the exisitng #jSResults table.
-        $("#jSResults tbody").append(tableRow);
-    }
+    // appending the new tableRow to the exisitng #jSResults table.
+    $("#" + whichTable + " tbody").append(tableRow);
 }
 
 // display Maps View
