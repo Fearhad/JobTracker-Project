@@ -69,3 +69,11 @@ function dMView(jobLocation) {
     mapDiv.append(map);
     console.log(map)
 }
+
+$("#add-user").on("click", function(event) {
+    event.preventDefault();
+    var name = $("#name-input").val().trim();
+
+    localStorage.clear();
+    localStorage.setItem("getajobName", name);
+});
