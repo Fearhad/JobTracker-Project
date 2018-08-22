@@ -96,7 +96,7 @@ function dSResults(jObject, index, whichTable) {
     var r = jObject;
 
     // creating new tableRow to append to the tbody of jSResults.
-    var tableRow = $("<tr>");
+    var tableRow = $("<tr class='jobItem'>");
 
     // setting detailModal or favModal data attr
     var whichModal = "";
@@ -105,7 +105,7 @@ function dSResults(jObject, index, whichTable) {
 
     // filling in each cell data with appropriate information.
     // this could be DRYed up a bit.
-    tableRow.append($("<td>").html('<span class="c-title text-primary" data-jobObjID="' + index + '" data-toggle="modal" data-target="#Modal" data-modal="' + whichModal + '">' + r.position + '</span>'));
+    tableRow.append($("<td>").html('<span class="c-title" data-jobObjID="' + index + '" data-toggle="modal" data-target="#Modal" data-modal="' + whichModal + '">' + r.position + '</span>'));
     tableRow.append($("<td>").text(r.companyname));
     tableRow.append($("<td>").text(r.dateadded));
     tableRow.append($("<td>").text("NA"));
