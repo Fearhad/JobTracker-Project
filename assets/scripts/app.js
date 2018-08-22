@@ -14,7 +14,6 @@ var database = firebase.database(); // initialize database object for firebase.
 var queryURL = "https://goremote.io/api/jobs";
 var globalJobObject;
 var globalFavJobObject = [];
-
 var favoriteJobs = [];
 
 $.ajax({
@@ -129,7 +128,19 @@ function dMView(jobLocation) {
 $("#add-user").on("click", function(event) {
     event.preventDefault();
     var name = $("#name-input").val().trim();
-
     localStorage.clear();
     localStorage.setItem("getajobName", name);
+    database.ref().child(name).set({user: name});
+    displayName();
 });
+
+function displayName() {
+    var userName = localStorage.getItem("getajobName");
+    if (userName != null) {
+        $("#userNameDiv").empty();
+        $("#userNameDiv").html("<p>Welcome, " + userName);
+        
+    }     
+}
+
+displayName();
