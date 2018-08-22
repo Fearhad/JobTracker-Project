@@ -36,16 +36,34 @@
         </div>
     </div>
     <!-- End Modal -->
-
-    <div class="row">
-        <!-- Logo image -->
-        <div class="col-md-4">
-            <img src="assets/images/getajob-logo.gif" width="300px" id="header-img">
+      
+        <div class="row">
+            <!-- Logo image -->
+            <div class="col-md-4">
+                <img src="assets/images/getajob-logo.gif" width="300px" id="header-img">
+            </div>
+            <!-- search input -->
+            <div class="col-md-2">
+                <div class="form-group">
+                  <label for="searchJob">Search</label>
+                  <input type="search" name="searchJob" id="searchJob" class="form-control" placeholder="Search" required>
+                  <button type="button" class="btn" id="search-btn">Search</button>
+                </div>
+            <!-- nav buttons -->
+            <div class="col-md-5">
+                <nav class="nav">
+                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </nav>
+            </div>
         </div>
         <!-- search input -->
         <div class="col-md-2">
             <input class="form-control" type="text" id="input-fld" placeholder="Type..." aria-label="Search">
         </div>
+
         <!-- search button -->
         <div class="col-md-1">
             <button type="button" class="btn" id="search-btn">Search</button>
@@ -62,6 +80,14 @@
     </div>
     <div class="row buffer"></div>
 
+    <form role="form">
+        <div class="form-group row">
+          <label for="name-input">Name:</label>
+          <input class="form-control" id="name-input" type="text">
+        </div>
+        <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+    </form>
+      
     <h2 class="my-2">Currently Available Remote Jobs</h2>
     <div class="row">
         <table id="jSResults" class="table">
@@ -96,8 +122,6 @@
             </tbody>
         </table>
     </div>
-
-
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
