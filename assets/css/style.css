@@ -1,22 +1,42 @@
+body {
+    background-image: url("../images/qbkls.png");
+}
+
+.container {
+    background-color: white;
+}
+
+header {
+    background-color: white;
+}
+
 #header-img {
     margin-left: 55px;
     margin-top: 15px;
     margin-bottom: 15px;
+    float: right;
 }
 
 .nav-link {
-    padding-top: 45px;
-    font-size: 30px;
+    font-size: 25px;
+    margin-top: 45px;
     float: right;
     padding-right: 20px;
-    color: #434443;
+    color: #666699;
     font-family: Arial, Helvetica, sans-serif;  
-    
 }
 
+.nav-link:hover {
+    color: #ffcd33;
+}
+
+
 .buffer {
-    background-color: #434443;
+    background-color: #ffcd33;
+    opacity: .4;
     height: 4px;
+    margin-bottom: 30px;
+    margin-top: 10px;
 }
 
 
@@ -37,4 +57,39 @@
 span.c-title:hover {
     text-decoration: underline;
     cursor: pointer;
+    color: #ffcd33;
 }
+
+
+.tab {
+    background-color: #666699;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    color: azure;
+    font-family: Arial, Helvetica, sans-serif;  
+    
+   
+    }
+
+#tbody:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #ffcd33;
+}
+
+
+
+.my-2 {
+    color: #666699;
+    padding-bottom: 5px;
+    padding-top: 25px;
+}
+
+.style {
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+
+
+

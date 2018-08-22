@@ -7,15 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <title>GET(aJOB)|</title>
+
+
 </head>
 
 <body>
+    <header>
 
-    <div class="container">
+        <!-- header -->
+        <div class="container">
+            <div class="row">
+                <!-- Logo image -->
 
+            
     <!-- Modal -->
+                     <div class="container style">
     <div class="modal fade" id="Modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -31,9 +40,12 @@
                     <div id="applyurl"></div>
                     <div id="googleMap" class="my-2"></div>
                     <div>Job Description: <span id="description" class="font-weight-bold"></span></div>
+
                 </div>
             </div>
+
         </div>
+
     </div>
     <!-- End Modal -->
       
@@ -48,37 +60,34 @@
                   <label for="searchJob">Search</label>
                   <input type="search" name="searchJob" id="searchJob" class="form-control" placeholder="Search" required>
                   <button type="button" class="btn" id="search-btn">Search</button>
+
                 </div>
-            <!-- nav buttons -->
-            <div class="col-md-5">
-                <nav class="nav">
-                    <a class="nav-link active" href="#">Active</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </nav>
             </div>
         </div>
-        <!-- search input -->
-        <div class="col-md-2">
-            <input class="form-control" type="text" id="input-fld" placeholder="Type..." aria-label="Search">
-        </div>
 
-        <!-- search button -->
-        <div class="col-md-1">
-            <button type="button" class="btn" id="search-btn">Search</button>
-        </div>
-        <!-- nav buttons -->
-        <div class="col-md-5">
-            <nav class="nav">
-                <a class="nav-link active" href="#">Active</a>
-                <a class="nav-link" href="#">Link</a>
-                <a class="nav-link" href="#">Link</a>
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </nav>
+        <!-- search input -->
+      <div class="col-md-4">
+                    <img src="assets/images/getajob-logo.gif" width="300px" id="header-img">
+                </div>
+                <!-- search input -->
+                <div class="col-md-3">
+                    <input class="form-control" type="text" id="input-fld" placeholder="Type..." aria-label="Search">
+                </div>
+                <!-- search button -->
+                <div class="col-md-1">
+                    <button type="button" class="btn" id="search-btn">Search</button>
+                </div>
+                <!-- nav buttons -->
+                <div class="col-md-4">
+                    <nav class="nav">
+                        <a class="nav-link" href="">Link</a>
+                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </nav>
         </div>
     </div>
     <div class="row buffer"></div>
+              
     <div id="userNameDiv">
     <form role="form">
         <div class="form-group row">
@@ -123,10 +132,12 @@
         </table>
     </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/5.4.0/firebase.js"></script>
+
     <script src="assets/scripts/app.js"></script>
 </body>
 
