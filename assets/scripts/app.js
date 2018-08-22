@@ -19,7 +19,6 @@ var favoriteJobs = [];
 
 $.ajax({
     url: queryURL,
-    headers: {"Access-Control-Allow-Origin": "null"},
     method: "GET"
 }).then(function(response){ 
 
