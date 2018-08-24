@@ -150,3 +150,8 @@ function displayName() {
 }
 
 displayName();
+
+$("#sendStatus").click(function(){
+    var newStatus = $("#statusChange").val();
+    console.log(newStatus);
+});

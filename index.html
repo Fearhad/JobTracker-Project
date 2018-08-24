@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/animate.css">
     <title>GET(aJOB)|</title>
 
 
@@ -44,7 +44,20 @@
                         <div>Job Description:
                             <span id="description" class="font-weight-bold"></span>
                         </div>
-
+                        <div class="form-group" id="dropdown">
+                            <label for="statusChange">Change Status</label>
+                            <select name="sel1" id="statusChange">
+                                <option value="Not Applied">Not Applied</option>
+                                <option value="Applied">Applied</option>
+                                <option value="Follow-up Sent">Follow-up Sent</option>
+                                <option value="Phone Interview Scheduled">Phone Interview Scheduled</option>
+                                <option value="In-Person Interview Scheduled">In-Person Interview Scheduled</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Job Offered">Job Offered</option>
+                                <option value="Closed">Closed</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary" id="sendStatus">Save Status</button>
+                        </div>
                     </div>
                 </div>
 
