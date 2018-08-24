@@ -50,10 +50,11 @@ $("#search-btn").on("click", function() {
 // retrieve any existing data
 database.ref().on("value", function(snapshot){
     var data = snapshot.child(currentUser).val();
+    console.log(data);
     favoriteJobs = (data) ? data : [];
     console.log(favoriteJobs);
-    for(var i = 0; i < favoriteJobs.length; i++) {
-        var queryURL = "https://goremote.io/api/job/" + favoriteJobs[i].jobid;
+    for(var jobid in favoriteJobs) {
+        var queryURL = "https://goremote.io/api/job/" + jobid;
         var index = 0;
         console.log(encodeURI(queryURL));
         $.ajax({
