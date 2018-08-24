@@ -107,8 +107,10 @@ $('#Modal').on('show.bs.modal', function (event) {
     database.ref(currentUser + "/" + job.jobid).once('value', function (snapshot) {
         if (snapshot.exists()) {
             $("#favorite").css("display", "none");
+            $("#dropdown").css("display", "block");
         } else {
             $("#favorite").css("display", "block");
+            $("#dropdown").css("display", "none");
         }
     });
 
