@@ -15,6 +15,8 @@ var queryURL = "https://goremote.io/api/jobs";
 var globalJobObject;
 var globalFavJobObject = [];
 var favoriteJobs = [];
+var currentUser = "";
+if(localStorage.getItem("getajobName")) { currentUser = localStorage.getItem("getajobName"); }
 
 jQuery.ajaxPrefilter(function(options) {
     if (options.crossDomain && jQuery.support.cors) {
@@ -47,37 +49,35 @@ $("#search-btn").on("click", function() {
 
 // retrieve any existing data
 database.ref().on("value", function(snapshot){
-    if(snapshot.child("jobs").exists()) {
-        favoriteJobs = snapshot.val().jobs;
-        console.log(favoriteJobs);
-        for(var i = 0; i < favoriteJobs.length; i++) {
-            var queryURL = "https://goremote.io/api/job/" + favoriteJobs[i];
-            var index = 0;
-            console.log(encodeURI(queryURL));
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function(response){
-                console.log(index);
-                dSResults(response, index, "favResults");
-                index++;
-                globalFavJobObject.push(response);
-                console.log(globalFavJobObject);
-            }).catch(function(error){
-                console.log("Something, something dark side: " + error);
-            })
-        }
+    var data = snapshot.child(currentUser).val();
+    favoriteJobs = (data) ? data : [];
+    console.log(favoriteJobs);
+    for(var i = 0; i < favoriteJobs.length; i++) {
+        var queryURL = "https://goremote.io/api/job/" + favoriteJobs[i].jobid;
+        var index = 0;
+        console.log(encodeURI(queryURL));
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(index);
+            dSResults(response, index, "favResults");
+            index++;
+            globalFavJobObject.push(response);
+            console.log(globalFavJobObject);
+        }).catch(function(error){
+            console.log("Something, something dark side: " + error);
+        })
     }
 });
 
 // create favorite click handler to call firebase database and save new array.
 $("#favorite").on("click", function(){
     var jobToFav = $(this).attr("data-jobID");
-    favoriteJobs.push(jobToFav);
+    console.log(jobToFav);
+    // favoriteJobs.push({status: "Not Applied"});
 
-    database.ref().set({
-        jobs: favoriteJobs
-    });
+    database.ref().child(currentUser).child(jobToFav).set({status: "Not Applied"});
 });
 
 // Modal Handler
@@ -134,9 +134,10 @@ function dMView(jobLocation) {
 $("#add-user").on("click", function(event) {
     event.preventDefault();
     var name = $("#name-input").val().trim();
+    currentUser = name;
     localStorage.clear();
     localStorage.setItem("getajobName", name);
-    database.ref().child(name).set({user: name});
+    database.ref().child(name).set(favoriteJobs);
     displayName();
 });
 
