@@ -26,11 +26,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <button class="btn btn-success" id="favorite" data-jobID="">Add To Favorite</button>
-                        <div>Company Name:
-                            <span id="companyname" class="font-weight-bold"></span>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-success" id="favorite" data-jobID="">Add To Favorite</button>
+                            </div>
+                            <div class="col-md-5">
+                                <div>Company Name:
+                                    <span id="companyname" class="font-weight-bold"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="applyurl" class="url"></div>
+                            </div>
                         </div>
-                        <div id="applyurl"></div>
                         <div id="googleMap" class="my-2"></div>
                         <div>Job Description:
                             <span id="description" class="font-weight-bold"></span>
@@ -45,61 +54,126 @@
         <!-- End Modal -->
 
         <div class="row">
-            
+
             <div class="col-md-4">
                 <img src="assets/images/getajob-logo.gif" id="header-img">
             </div>
             <div id="userNameDiv" class="col-lg-8 text-right">
-                    <form role="form" class="form-inline">
-                        <div class="form-group mb-2">
-                            <label for="name-input">Name:</label>
-                            <input class="form-control" id="name-input" type="text" required>
-                        
+                <form role="form" class="form-inline">
+                    <div class="form-group mb-2">
+                        <label for="name-input">Name:</label>
+                        <input class="form-control" id="name-input" type="text" required>
+
                         <button class="btn btn-primary mb-2" id="add-user" type="submit">Submit</button>
                     </div>
-                    </form>
-                </div>            
+                </form>
+            </div>
         </div>
 
-        
-    <div class="row buffer"></div>
 
-    
-    <h2 class="my-2">Currently Available Remote Jobs</h2>
-    <div class="row">
-        <table id="jSResults" class="table">
-            <thead>
-                <tr>
-                    <th style="width: 35%" scope="col">Job Title</th>
-                    <th style="width: 12%" scope="col">Company Name</th>
-                    <th style="width: 15%" scope="col">Date Posted</th>
-                    <th style="width: 3%" scope="col">Location</th>
-                    <th style="width: 35%" scope="col">Job Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+        <div class="row buffer"></div>
 
 
-    <h2 class="my-2">Saved Remote Jobs</h2>
-    <div class="row">
-        <table id="favResults" class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Job Title</th>
-                    <th scope="col">Company Name</th>
-                    <th scope="col">Date Posted</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Job Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <h2 class="my-2">Currently Available Remote Jobs</h2>
+        <div class="row">
+            <table id="jSResults" class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%" scope="col">Job Title</th>
+                        <th style="width: 12%" scope="col">Company Name</th>
+                        <th style="width: 15%" scope="col">Date Posted</th>
+                        <th style="width: 3%" scope="col">Location</th>
+                        <th style="width: 35%" scope="col">Job Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h2 class="my-2">Saved Remote Jobs</h2>
+        <div class="row">
+            <table id="favResults" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Date Posted</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Job Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-    </div>
+
+    <!-- footer -->
+    <footer class="page-footer font-small blue pt-4">
+
+        <div class="container-fluid text-center text-md-left container">
+
+            <div class="row">
+                    <div class="col-md-6 mb-md-0 mb-3">
+                        <p>The best way to manage interesting job postings and keep track of your job search efforts so that you can GET(aJOB)</p1>
+                    </div>
+
+                <div class="col-md-3 mt-md-0 mt-3">
+
+                    <h5 class="text-uppercase">Technology</h5>
+                   
+                        <ul class="list-unstyled">
+                            <li>
+                                <a>Javascript</a>
+                            </li>
+                            <li>
+                                <a>JQuery</a>
+                            </li>
+                            <li>
+                                <a>Google Maps API's</a>
+                            </li>
+                            <li>
+                                <a>GoRemote.io</a>
+                            </li>
+                            <li>
+                                <a>Bootstrap 4</a>
+                            </li>
+                        </ul>
+
+
+                </div>
+
+                <hr class="clearfix w-100 d-md-none pb-3">
+
+                <div class="col-md-3 mb-md-0 mb-3">
+                        <h5 class="text-uppercase">Creators</h5>
+                      
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a>Allan Hartigan</a>
+                                </li>
+                                <li>
+                                    <a>Ilham Hafizovic </a>
+                                </li>
+                                <li>
+                                    <a>Taylor Doodchenko</a>
+                                </li>
+                </div>
+
+              
+
+            </div>
+
+        </div>
+
+        <div class="footer-copyright text-center py-3">© 2018 Copyright:
+            <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+        </div>
+
+    </footer>
+    <!-- Footer -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
