@@ -1,4 +1,3 @@
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCVehJ1ulLwPoTnIXFhkMPUCINBa6ks1Vw",
@@ -7,7 +6,8 @@ var config = {
     projectId: "getajob-project1",
     storageBucket: "getajob-project1.appspot.com",
     messagingSenderId: "171249140675"
-}; firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var database = firebase.database(); // initialize database object for firebase.
 
@@ -16,77 +16,84 @@ var globalJobObject;
 var globalFavJobObject = [];
 var favoriteJobs = [];
 var currentUser = "";
-if(localStorage.getItem("getajobName")) { currentUser = localStorage.getItem("getajobName"); }
+if (localStorage.getItem("getajobName")) {
+    currentUser = localStorage.getItem("getajobName");
+}
 
-jQuery.ajaxPrefilter(function(options) {
+jQuery.ajaxPrefilter(function (options) {
     if (options.crossDomain && jQuery.support.cors) {
         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
     }
-}); 
+});
 
 $.ajax({
     url: queryURL,
     method: "GET"
-}).then(function(response){ 
+}).then(function (response) {
 
-    for(var i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
         var index = i;
         dSResults(response[i], index, "jSResults");
     }
     globalJobObject = response;
-}).catch(function(error){
+}).catch(function (error) {
     console.log("The Following Error Occurred: " + error);
 });
 
 // click handler for the search term button (search-btn)
-$("#search-btn").on("click", function() {
+$("#search-btn").on("click", function () {
     event.preventDefault();
 
     // retrive the job search term user has input into the search field.
     var term = $("#input-fld").val().toLowerCase().trim();
-    console.log(term); 
+    console.log(term);
 });
 
 // retrieve any existing data
-database.ref().on("value", function(snapshot){
+database.ref().on("value", function (snapshot) {
     var data = snapshot.child(currentUser).val();
     console.log(data);
     favoriteJobs = (data) ? data : [];
     console.log(favoriteJobs);
-    for(var jobid in favoriteJobs) {
+    for (var jobid in favoriteJobs) {
         var queryURL = "https://goremote.io/api/job/" + jobid;
         var index = 0;
         console.log(encodeURI(queryURL));
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function(response){
+        }).then(function (response) {
             console.log(index);
             dSResults(response, index, "favResults");
             index++;
             globalFavJobObject.push(response);
             console.log(globalFavJobObject);
-        }).catch(function(error){
+        }).catch(function (error) {
             console.log("Something, something dark side: " + error);
         })
     }
 });
 
 // create favorite click handler to call firebase database and save new array.
-$("#favorite").on("click", function(){
+$("#favorite").on("click", function () {
     var jobToFav = $(this).attr("data-jobID");
     console.log(jobToFav);
     // favoriteJobs.push({status: "Not Applied"});
 
-    database.ref().child(currentUser).child(jobToFav).set({status: "Not Applied"});
+    database.ref().child(currentUser).child(jobToFav).set({
+        status: "Not Applied"
+    });
 });
 
 // Modal Handler
 $('#Modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var job;
-    if(button.attr("data-modal") == "detailModal") { job = globalJobObject[button.attr('data-jobObjID')]; }
-    else { job = globalFavJobObject[button.attr('data-jobObjID')]; }
+    if (button.attr("data-modal") == "detailModal") {
+        job = globalJobObject[button.attr('data-jobObjID')];
+    } else {
+        job = globalFavJobObject[button.attr('data-jobObjID')];
+    }
     console.log(job); // Pull up the current job listing from the global Job Object.
 
     var modal = $(this);
@@ -96,6 +103,17 @@ $('#Modal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #companyname').text(job.companyname);
     modal.find('.modal-body #googleMap').val(dMView(job.companyname));
     modal.find('.modal-body #description').html(job.description);
+
+    database.ref(currentUser + "/" + job.jobid).once('value', function (snapshot) {
+        if (snapshot.exists()) {
+            $("#favorite").css("display", "none");
+        } else {
+            $("#favorite").css("display", "block");
+        }
+    });
+
+
+
 });
 
 // function display Search Results
@@ -107,8 +125,11 @@ function dSResults(jObject, index, whichTable) {
 
     // setting detailModal or favModal data attr
     var whichModal = "";
-    if(whichTable == "favResults") { whichModal = "favModal"; }
-    else { whichModal = "detailModal"; }
+    if (whichTable == "favResults") {
+        whichModal = "favModal";
+    } else {
+        whichModal = "detailModal";
+    }
 
     // filling in each cell data with appropriate information.
     // this could be DRYed up a bit.
@@ -132,7 +153,7 @@ function dMView(jobLocation) {
     console.log(map)
 }
 
-$("#add-user").on("click", function(event) {
+$("#add-user").on("click", function (event) {
     event.preventDefault();
     var name = $("#name-input").val().trim();
     currentUser = name;
@@ -147,15 +168,20 @@ function displayName() {
     if (userName != null) {
         $("#userNameDiv").empty();
         $("#userNameDiv").html("<p>Welcome, " + userName);
-        
-    }     
+
+    }
 }
 
 displayName();
 
-$("#sendStatus").click(function(){
+$("#sendStatus").click(function () {
     var newStatus = $("#statusChange").val();
     var getID = $("#favorite").attr("data-jobID");
     console.log(newStatus);
     database.ref(currentUser + "/" + getID + "/status").set(newStatus);
+    if (newStatus === "Delete") {
+        database.ref(currentUser + "/" + getID).remove();
+        location.reload();
+    }
+    
 });
