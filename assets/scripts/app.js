@@ -155,4 +155,5 @@ displayName();
 $("#sendStatus").click(function(){
     var newStatus = $("#statusChange").val();
     console.log(newStatus);
+    database.ref().update($("#favorite").data("jobID")).child(status) = newStatus;
 });
