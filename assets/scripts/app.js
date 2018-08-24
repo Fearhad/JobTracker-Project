@@ -155,6 +155,7 @@ displayName();
 
 $("#sendStatus").click(function(){
     var newStatus = $("#statusChange").val();
+    var getID = $("#favorite").attr("data-jobID");
     console.log(newStatus);
-    database.ref().update($("#favorite").data("jobID")).child(status) = newStatus;
+    database.ref(currentUser + "/" + getID + "/status").set(newStatus);
 });
