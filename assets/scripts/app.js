@@ -122,7 +122,8 @@ $('#Modal').on('show.bs.modal', function (event) {
 // function display Search Results
 function dSResults(jObject, index, whichTable) {
     var r = jObject;
-
+    var status = "Not Applied";
+    
     // creating new tableRow to append to the tbody of jSResults.
     var tableRow = $("<tr class='jobItem'>");
 
@@ -132,6 +133,7 @@ function dSResults(jObject, index, whichTable) {
         whichModal = "favModal";
     } else {
         whichModal = "detailModal";
+        status = "NA";
     }
 
     // filling in each cell data with appropriate information.
@@ -139,8 +141,16 @@ function dSResults(jObject, index, whichTable) {
     tableRow.append($("<td>").html('<span class="c-title" data-jobObjID="' + index + '" data-toggle="modal" data-target="#Modal" data-modal="' + whichModal + '">' + r.position + '</span>'));
     tableRow.append($("<td>").text(r.companyname));
     tableRow.append($("<td>").text(r.dateadded));
-    tableRow.append($("<td>").text("NA"));
+    if (whichTable == "favResults") {
+        tableRow.append($("<td>").addClass("status " + index));
+    } else {
+        tableRow.append($("<td>").text(status));
+    }
     tableRow.append($("<td>").html(r.description.substr(0, 100) + "..."));
+
+    database.ref(currentUser + "/" + r.jobid).once("value").then(function (snapshot) {
+        $("." + index).text(snapshot.val().status);
+    });
 
     // appending the new tableRow to the exisitng #jSResults table.
     $("#" + whichTable + " tbody").append(tableRow);
