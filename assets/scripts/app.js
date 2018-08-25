@@ -20,25 +20,56 @@ if (localStorage.getItem("getajobName")) {
     currentUser = localStorage.getItem("getajobName");
 }
 
+var currentPage = 1;
+
 jQuery.ajaxPrefilter(function (options) {
     if (options.crossDomain && jQuery.support.cors) {
         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
     }
 });
 
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
+function mainJobPull() {
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+    
+        for (var i = 0; i < 10; i++) {
+            var index = i;
+            var responseIndex = i;
+            if (currentPage > 1) {
+                responseIndex = i + (currentPage - 1) * 10;
+            }
+            dSResults(response[responseIndex], index, "jSResults");
+        }
+        globalJobObject = response;
+    }).catch(function (error) {
+        console.log("The Following Error Occurred: " + error);
+    });
+}
 
-    for (var i = 0; i < 10; i++) {
-        var index = i;
-        dSResults(response[i], index, "jSResults");
+// initial job pull from goRemote API.
+mainJobPull();
+
+// pagination click handler
+$(".page-link").on("click", function() {
+    var whatClick = $(this).attr("id");
+    if (whatClick == "next") {
+        $("#previous").parent().removeClass("disabled");
+        currentPage++;
+        
     }
-    globalJobObject = response;
-}).catch(function (error) {
-    console.log("The Following Error Occurred: " + error);
-});
+
+    if (whatClick == "previous") {
+        currentPage--;
+        if (currentPage < 2) {
+            $("#previous").parent().addClass("disabled");
+        }
+    }
+
+    $("#jSResults tbody").empty();
+    mainJobPull();
+})
 
 // click handler for the search term button (search-btn)
 $("#search-btn").on("click", function () {
