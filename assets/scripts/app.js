@@ -227,5 +227,9 @@ $("#sendStatus").click(function () {
         database.ref(currentUser + "/" + getID).remove();
         location.reload();
     }
-    
+    location.reload();
 });
+
+$(".close").click(function () {
+    location.reload();
+})
