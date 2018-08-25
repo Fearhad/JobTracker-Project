@@ -69,6 +69,7 @@ a {
     color: #666699;
     padding-bottom: 5px;
     padding-top: 25px;
+    padding-left: 0;
 }
 
 .style {
@@ -118,3 +119,25 @@ a:hover {
     color: white;
 }
 
+#pager {
+    margin-left: 95px;
+}
+
+#next {
+    margin-left: 10px;
+    color: white;
+    background-color: #666699;
+}
+
+#previous {
+    color: white;
+    background-color: #666699;
+}
+
+.pageContainer, .container.style {
+    padding: 2px;
+}
+
+.table th, .table td {
+    padding-left: 16px;
+}
