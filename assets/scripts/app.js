@@ -55,6 +55,7 @@ database.ref().on("value", function (snapshot) {
     console.log(data);
     favoriteJobs = (data) ? data : [];
     console.log(favoriteJobs);
+    $("#favResults tbody").empty();
     for (var jobid in favoriteJobs) {
         var queryURL = "https://goremote.io/api/job/" + jobid;
         var index = 0;
