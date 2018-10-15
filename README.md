@@ -10,3 +10,7 @@ Our jobtracker project called, getA(job), uses an API which scrapes the internet
 You can select a job posting that interests you and add it to your favorites.
 
 ![](assets/images/add.PNG?raw=true "Optional Title")
+
+Once a job posting becomes a favorite, it displays under the Saved Jobs heading. 
+
+![](assets/images/saved.PNG?raw=true "Optional Title")
